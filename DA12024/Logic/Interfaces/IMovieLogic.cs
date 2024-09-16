@@ -1,4 +1,4 @@
-﻿using Logic.Domain;
+﻿using Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,6 @@ namespace Logic.Interfaces
     public interface IMovieLogic
     {
         List<Movie> GetMovies();
+        void AddMovie(Movie movie);
     }
 }

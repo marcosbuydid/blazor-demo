@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic.Domain
+namespace Logic.Models
 {
     public class Movie
     {
@@ -12,7 +12,7 @@ namespace Logic.Domain
         public string Director { get; set; }
         public DateTime ReleaseDate { get; set; }
 
-        public Movie(int id, string title, string director, DateTime releaseYear)
+        public Movie(string title, string director, DateTime releaseYear)
         {
             Title = title;
             Director = director;
@@ -21,7 +21,7 @@ namespace Logic.Domain
 
         public override string ToString()
         {
-            return ($"Title: {Title}, Director: {Director}, ReleaseYear: {ReleaseDate}");
+            return $"Title: {Title}, Director: {Director}, ReleaseYear: {ReleaseDate}";
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿using Logic.DataAccess;
-using Logic.Domain;
 using Logic.Interfaces;
+using Logic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +16,38 @@ namespace Logic
         public MovieLogic(MemoryDB memoryDB)
         {
             _MemoryDB = memoryDB;
-        }    
+        }
+
+        public void AddMovie(Movie movie)
+        {
+            if (String.IsNullOrEmpty(movie.Title))
+            {
+                throw new ArgumentException("Movie title cannot be empty or null");
+            }
+            if (String.IsNullOrEmpty(movie.Director))
+            {
+                throw new ArgumentException("Movie director cannot be empty or null");
+            }
+
+            validateMovieTitle(movie.Title);
+
+            _MemoryDB.Movies.Add(movie);
+        }
 
         public List<Movie> GetMovies()
         {
             return _MemoryDB.Movies;
+        }
+
+        private void validateMovieTitle(String title)
+        {
+            foreach (var movie in _MemoryDB.Movies)
+            {
+                if(movie.Title == title)
+                {
+                    throw new ArgumentException("There`s a movie already defined with that title");
+                }
+            }
         }
     }
 }

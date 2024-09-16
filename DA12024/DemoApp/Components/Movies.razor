@@ -1,6 +1,6 @@
 ﻿@page "/movies"
 @using Logic
-@using Logic.Domain
+@using Logic.Models
 @inject MovieLogic movieLogic
 
 <h1>Movie List</h1>
@@ -21,7 +21,7 @@
             <tr>
                 <td>@movie.Title</td>
                 <td>@movie.Director</td>
-                <td>@movie.ReleaseDate</td>
+                <td>@movie.ReleaseDate.Year/@movie.ReleaseDate.Month/@movie.ReleaseDate.Day</td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
                 <td><button type="button" class="btn btn-danger">Delete</button></td>
             </tr>
