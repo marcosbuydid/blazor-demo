@@ -2,7 +2,7 @@
 @using Logic
 @using Logic.Models
 @inject NavigationManager NavigationManager;
-@inject MovieLogic movieLogic
+@inject MovieLogic MovieLogic
 
 <h1>Create Movie</h1>
 
@@ -17,7 +17,7 @@
             <input type="text" class="form-control" id="director" @bind="movie.Director" />
         </div>
         <div class="form-group">
-            <label for="releaseYear">Release Date</label>
+            <label for="releaseDate">Release Date</label>
             <input type="date" id="movie-releaseDate" name="movie-releaseDate" value="2024-01-01" />
         </div>
     </form>
@@ -38,7 +38,7 @@
 
     private void OnSubmit()
     {
-        movieLogic.AddMovie(movie);
+        MovieLogic.AddMovie(movie);
         NavigationManager.NavigateTo("/movies");
     }
 

@@ -29,9 +29,14 @@ namespace Logic
                 throw new ArgumentException("Movie director cannot be empty or null");
             }
 
-            validateMovieTitle(movie.Title);
+            ValidateMovieTitle(movie.Title);
 
             _MemoryDB.Movies.Add(movie);
+        }
+
+        public void DeleteMovie(string title)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Movie> GetMovies()
@@ -39,7 +44,7 @@ namespace Logic
             return _MemoryDB.Movies;
         }
 
-        private void validateMovieTitle(String title)
+        private void ValidateMovieTitle(String title)
         {
             foreach (var movie in _MemoryDB.Movies)
             {
