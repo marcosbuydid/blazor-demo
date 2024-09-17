@@ -11,11 +11,11 @@ namespace Logic
 {
     public class MovieLogic : IMovieLogic
     {
-        private readonly MemoryDB _MemoryDB;
+        private readonly MemoryDB _memoryDB;
 
         public MovieLogic(MemoryDB memoryDB)
         {
-            _MemoryDB = memoryDB;
+            _memoryDB = memoryDB;
         }
 
         public void AddMovie(Movie movie)
@@ -31,23 +31,23 @@ namespace Logic
 
             ValidateMovieTitle(movie.Title);
 
-            _MemoryDB.Movies.Add(movie);
+            _memoryDB.Movies.Add(movie);
         }
 
         public void DeleteMovie(String title)
         {
             Movie movie = FindMovieByTitle(title);
-            _MemoryDB.Movies.Remove(movie);
+            _memoryDB.Movies.Remove(movie);
         }
 
         public List<Movie> GetMovies()
         {
-            return _MemoryDB.Movies;
+            return _memoryDB.Movies;
         }
 
         private void ValidateMovieTitle(String title)
         {
-            foreach (var movie in _MemoryDB.Movies)
+            foreach (var movie in _memoryDB.Movies)
             {
                 if(movie.Title == title)
                 {
@@ -58,7 +58,7 @@ namespace Logic
 
         private Movie FindMovieByTitle(String title)
         {
-           Movie movie = _MemoryDB.Movies.FirstOrDefault(movie => movie.Title == title);
+           Movie movie = _memoryDB.Movies.FirstOrDefault(movie => movie.Title == title);
             if (movie == null)
             {
                 throw new ArgumentException("Cannot find movie with this title");
