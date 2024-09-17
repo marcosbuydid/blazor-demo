@@ -11,5 +11,6 @@ namespace Logic.Interfaces
     {
         List<Movie> GetMovies();
         void AddMovie(Movie movie);
+        void DeleteMovie(String title);
     }
 }

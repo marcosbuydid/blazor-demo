@@ -34,9 +34,10 @@ namespace Logic
             _MemoryDB.Movies.Add(movie);
         }
 
-        public void DeleteMovie(string title)
+        public void DeleteMovie(String title)
         {
-            throw new NotImplementedException();
+            Movie movie = FindMovieByTitle(title);
+            _MemoryDB.Movies.Remove(movie);
         }
 
         public List<Movie> GetMovies()
@@ -53,6 +54,16 @@ namespace Logic
                     throw new ArgumentException("There`s a movie already defined with that title");
                 }
             }
+        }
+
+        private Movie FindMovieByTitle(String title)
+        {
+           Movie movie = _MemoryDB.Movies.FirstOrDefault(movie => movie.Title == title);
+            if (movie == null)
+            {
+                throw new ArgumentException("Cannot find movie with this title");
+            }
+            return movie;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@page "/movies"
 @using Logic
 @using Logic.Models
-@inject MovieLogic movieLogic
+@inject MovieLogic MovieLogic
 
 <h1>Movie List</h1>
 
@@ -23,7 +23,7 @@
                 <td>@movie.Director</td>
                 <td>@movie.ReleaseDate.Year/@movie.ReleaseDate.Month/@movie.ReleaseDate.Day</td>
                 <td><button type="button" class="btn btn-primary">Edit</button></td>
-                <td><button type="button" class="btn btn-danger">Delete</button></td>
+                <td><button type="button" class="btn btn-danger" @onclick="() => OnDelete(movie.Title)">Delete</button></td>
             </tr>
         }
     </tbody>
@@ -33,7 +33,12 @@
     private List<Movie> movies;
     protected override async Task OnInitializedAsync()
     {
-        movies = movieLogic.GetMovies();
+        movies = MovieLogic.GetMovies();
+    }
+
+    private void OnDelete(String title)
+    {
+        MovieLogic.DeleteMovie(title);
     }
 
 }
