@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<MemoryDB>();
-builder.Services.AddScoped<MovieLogic, MovieLogic>();
+builder.Services.AddScoped<MovieLogic>();
 
 var app = builder.Build();
 
