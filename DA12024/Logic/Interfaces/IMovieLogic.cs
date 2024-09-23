@@ -12,5 +12,8 @@ namespace Logic.Interfaces
         List<Movie> GetMovies();
         void AddMovie(Movie movie);
         void DeleteMovie(String title);
+        void UpdateMovie(Movie movie);
+        Movie FindMovieByTitle(String title);
+
     }
 }
