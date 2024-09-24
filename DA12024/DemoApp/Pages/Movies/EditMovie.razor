@@ -36,13 +36,7 @@
 
     protected override void OnInitialized()
     {
-        movieToUpdate = SearchMovieByTitle(movieTitle);
-    }
-
-    private Movie SearchMovieByTitle(String title)
-    {
-        Movie movie = MovieLogic.FindMovieByTitle(title);
-        return movie;
+        movieToUpdate = MovieLogic.SearchMovieByTitle(movieTitle);
     }
 
     private void OnUpdate(Movie movieToUpdate)

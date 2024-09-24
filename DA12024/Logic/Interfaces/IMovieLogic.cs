@@ -13,7 +13,7 @@ namespace Logic.Interfaces
         void AddMovie(Movie movie);
         void DeleteMovie(String title);
         void UpdateMovie(Movie movie);
-        Movie FindMovieByTitle(String title);
+        Movie SearchMovieByTitle(String title);
 
     }
 }
