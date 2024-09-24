@@ -11,43 +11,34 @@ namespace Logic
 {
     public class MovieLogic : IMovieLogic
     {
-        private readonly MemoryDB _memoryDB;
+        private readonly IRepository<Movie> _moviesRepository;
 
-        public MovieLogic(MemoryDB memoryDB)
+        public MovieLogic(IRepository<Movie> moviesRepository)
         {
-            _memoryDB = memoryDB;
+            _moviesRepository = moviesRepository;
         }
 
         public void AddMovie(Movie movie)
         {
-            if (String.IsNullOrEmpty(movie.Title))
-            {
-                throw new ArgumentException("Movie title cannot be empty or null");
-            }
-            if (String.IsNullOrEmpty(movie.Director))
-            {
-                throw new ArgumentException("Movie director cannot be empty or null");
-            }
-
             ValidateMovieTitle(movie.Title);
 
-            _memoryDB.Movies.Add(movie);
+            _moviesRepository.Add(movie);
         }
 
         public void DeleteMovie(String title)
         {
             Movie movie = SearchMovieByTitle(title);
-            _memoryDB.Movies.Remove(movie);
+            _moviesRepository.Delete(movie);
         }
 
         public List<Movie> GetMovies()
         {
-            return _memoryDB.Movies;
+            return _moviesRepository.FindAll().ToList();
         }
 
         public Movie SearchMovieByTitle(String title)
         {
-            Movie movie = _memoryDB.Movies.FirstOrDefault(movie => movie.Title == title);
+            Movie movie = _moviesRepository.Find(movie => movie.Title == title);
             if (movie == null)
             {
                 throw new ArgumentException("Cannot find movie with this title");
@@ -57,19 +48,18 @@ namespace Logic
 
         public void UpdateMovie(Movie movieToUpdate)
         {
-            var movieToUpdateIndex = _memoryDB.Movies.IndexOf(_memoryDB.Movies.Find(m => m.Title == movieToUpdate.Title));
-
+            
             if (String.IsNullOrEmpty(movieToUpdate.Director))
             {
                 throw new ArgumentException("Movie director cannot be empty or null");
             }
 
-            _memoryDB.Movies[movieToUpdateIndex] = movieToUpdate;
+            _moviesRepository.Update(movieToUpdate);
         }
 
         private void ValidateMovieTitle(String title)
         {
-            foreach (var movie in _memoryDB.Movies)
+            foreach (var movie in _moviesRepository.FindAll())
             {
                 if(movie.Title == title)
                 {

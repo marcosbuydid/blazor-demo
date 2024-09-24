@@ -43,6 +43,7 @@
     private void OnDelete(String title)
     {
         MovieLogic.DeleteMovie(title);
+        NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
     private void OnEdit(String title)

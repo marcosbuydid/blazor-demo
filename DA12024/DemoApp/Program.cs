@@ -1,5 +1,6 @@
 using Logic;
 using Logic.DataAccess;
+using Logic.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -8,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<MemoryDB>();
 builder.Services.AddScoped<MovieLogic>();
+builder.Services.AddSingleton<IRepository<Movie>, MemoryDB>();
 
 var app = builder.Build();
 
