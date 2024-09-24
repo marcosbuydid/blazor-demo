@@ -36,7 +36,7 @@ namespace Logic
 
         public void DeleteMovie(String title)
         {
-            Movie movie = FindMovieByTitle(title);
+            Movie movie = SearchMovieByTitle(title);
             _memoryDB.Movies.Remove(movie);
         }
 
@@ -45,7 +45,7 @@ namespace Logic
             return _memoryDB.Movies;
         }
 
-        public Movie FindMovieByTitle(String title)
+        public Movie SearchMovieByTitle(String title)
         {
             Movie movie = _memoryDB.Movies.FirstOrDefault(movie => movie.Title == title);
             if (movie == null)
