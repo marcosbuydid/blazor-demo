@@ -31,7 +31,7 @@
 </table>
 
 @code {
-    private List<Movie> movies;
+    private List<MovieDTO> movies;
     private String selectedMovieTitle;
 
     protected override void OnInitialized()
@@ -43,6 +43,7 @@
     private void OnDelete(String title)
     {
         MovieLogic.DeleteMovie(title);
+        NavigationManager.NavigateTo(NavigationManager.Uri, true);
     }
 
     private void OnEdit(String title)

@@ -32,14 +32,14 @@
     [Parameter]
     public String movieTitle { get; set; }
 
-    private Movie movieToUpdate;
+    private MovieDTO movieToUpdate;
 
     protected override void OnInitialized()
     {
         movieToUpdate = MovieLogic.SearchMovieByTitle(movieTitle);
     }
 
-    private void OnUpdate(Movie movieToUpdate)
+    private void OnUpdate(MovieDTO movieToUpdate)
     {
         MovieLogic.UpdateMovie(movieToUpdate);
         NavigationManager.NavigateTo("/movies");

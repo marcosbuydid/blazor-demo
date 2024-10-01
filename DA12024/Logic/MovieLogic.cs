@@ -1,4 +1,5 @@
-﻿using Logic.DataAccess;
+﻿using Domain;
+using Logic.DataAccess;
 using Logic.Interfaces;
 using Logic.Models;
 using System;
@@ -18,44 +19,41 @@ namespace Logic
             _memoryDB = memoryDB;
         }
 
-        public void AddMovie(Movie movie)
+        public void AddMovie(MovieDTO movie)
         {
-            if (String.IsNullOrEmpty(movie.Title))
-            {
-                throw new ArgumentException("Movie title cannot be empty or null");
-            }
-            if (String.IsNullOrEmpty(movie.Director))
-            {
-                throw new ArgumentException("Movie director cannot be empty or null");
-            }
-
             ValidateMovieTitle(movie.Title);
 
-            _memoryDB.Movies.Add(movie);
+            _memoryDB.Movies.Add(movie.ToEntity());
         }
 
         public void DeleteMovie(String title)
         {
-            Movie movie = SearchMovieByTitle(title);
+            Movie movie = GetMovie(title);
             _memoryDB.Movies.Remove(movie);
         }
 
-        public List<Movie> GetMovies()
+        public List<MovieDTO> GetMovies()
         {
-            return _memoryDB.Movies;
+            List<MovieDTO> moviesDTO = new List<MovieDTO>();
+
+            foreach (var movie in _memoryDB.Movies)
+            {
+                moviesDTO.Add(MovieDTO.FromEntity(movie));
+            }
+            return moviesDTO;
         }
 
-        public Movie SearchMovieByTitle(String title)
+        public MovieDTO SearchMovieByTitle(String title)
         {
             Movie movie = _memoryDB.Movies.FirstOrDefault(movie => movie.Title == title);
             if (movie == null)
             {
                 throw new ArgumentException("Cannot find movie with this title");
             }
-            return movie;
+            return MovieDTO.FromEntity(movie);
         }
 
-        public void UpdateMovie(Movie movieToUpdate)
+        public void UpdateMovie(MovieDTO movieToUpdate)
         {
             var movieToUpdateIndex = _memoryDB.Movies.IndexOf(_memoryDB.Movies.Find(m => m.Title == movieToUpdate.Title));
 
@@ -64,7 +62,7 @@ namespace Logic
                 throw new ArgumentException("Movie director cannot be empty or null");
             }
 
-            _memoryDB.Movies[movieToUpdateIndex] = movieToUpdate;
+            _memoryDB.Movies[movieToUpdateIndex] = movieToUpdate.ToEntity();
         }
 
         private void ValidateMovieTitle(String title)
@@ -76,6 +74,16 @@ namespace Logic
                     throw new ArgumentException("There`s a movie already defined with that title");
                 }
             }
+        }
+
+        private Movie GetMovie(string title)
+        {
+            Movie movie = _memoryDB.Movies.FirstOrDefault(movie => movie.Title == title);
+            if (movie == null)
+            {
+                throw new ArgumentException("Cannot find movie with this title");
+            }
+            return movie;
         }
     }
 }

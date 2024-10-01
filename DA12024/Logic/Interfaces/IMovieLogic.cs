@@ -9,11 +9,11 @@ namespace Logic.Interfaces
 {
     public interface IMovieLogic
     {
-        List<Movie> GetMovies();
-        void AddMovie(Movie movie);
+        List<MovieDTO> GetMovies();
+        void AddMovie(MovieDTO movie);
         void DeleteMovie(String title);
-        void UpdateMovie(Movie movie);
-        Movie SearchMovieByTitle(String title);
+        void UpdateMovie(MovieDTO movie);
+        MovieDTO SearchMovieByTitle(String title);
 
     }
 }
