@@ -1,7 +1,12 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
 <PageTitle>Index</PageTitle>
 
 <h1>Home Page</h1>
 
-
+<div>
+    <NavLink class="nav-link" href="login" Match="NavLinkMatch.All">
+        <button type="button" class="btn btn-primary">Login</button>
+    </NavLink>
+</div>
