@@ -1,15 +1,26 @@
-﻿@inherits LayoutComponentBase
+﻿@using Logic
+@inherits LayoutComponentBase
+@inject SessionLogic SessionLogic
 
 <PageTitle>DemoApp</PageTitle>
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
+    @if (SessionLogic.GetLoggedUser() != null)
+    {
+        <div class="sidebar">
+            <NavMenu />
+        </div>
+    }
     <main>
         <article class="content px-4">
             @Body
         </article>
     </main>
 </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        SessionLogic.GetLoggedUser();
+    }
+}

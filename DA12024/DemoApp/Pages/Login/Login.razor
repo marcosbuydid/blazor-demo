@@ -1,20 +1,15 @@
 ﻿
 @page "/login"
-@using System.ComponentModel.DataAnnotations
+@using Logic
 @using Logic.Models
+@using System.ComponentModel.DataAnnotations
 @inject NavigationManager NavigationManager
+@inject SessionLogic SessionLogic
 
 <h1>Login</h1>
 
 <EditForm Model="@userLoginDTO" OnValidSubmit="HandleLogin">
     <DataAnnotationsValidator />
-
-    @if (loginResult)
-    {
-        <div class="alert alert-danger" role="alert">
-            Login failed. Please try again.
-        </div>
-    }
 
     <div class="form-group">
         <label for="email">Email:</label>
@@ -33,22 +28,17 @@
 
 @code {
     private UserLoginDTO userLoginDTO;
-    private bool loginResult;
+    private UserDTO loggedUser;
 
     protected override void OnInitialized()
     {
-     userLoginDTO = new UserLoginDTO("","");
+        userLoginDTO = new UserLoginDTO("","");
     }
 
     private async Task HandleLogin()
     {
-        if (userLoginDTO.Email == "marcos@mail.com" && userLoginDTO.Password == "123456")
-        {
-            NavigationManager.NavigateTo("/");
-        }
-        else
-        {
-            loginResult = true;
-        }
+        SessionLogic.Login(userLoginDTO.Email, userLoginDTO.Password);
+        loggedUser = UserDTO.FromEntity(SessionLogic.GetLoggedUser());
+        NavigationManager.NavigateTo("/");
     }
 }

@@ -1,0 +1,63 @@
+﻿@page "/create-user"
+@using Logic
+@using Logic.Models
+@inject NavigationManager NavigationManager
+@inject UserLogic UserLogic
+
+<h1>Create User</h1>
+
+<body>
+    <form>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" @bind="user.Name" />
+        </div>
+        <div class="form-group">
+            <label for="lastname">LastName</label>
+            <input type="text" class="form-control" id="lastname" @bind="user.LastName" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" @bind="user.Email" />
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" @bind="user.Password" />
+        </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <input type="text" class="form-control" id="role" @bind="user.Role" />
+        </div>
+    </form>
+
+    <button type="button" class="btn btn-primary" @onclick="OnSubmit">Save</button>
+    <button type="button" class="btn btn-secondary" @onclick="OnCancel">Cancel</button>
+
+</body>
+
+
+@code {
+    private UserDTO user;
+
+    protected override void OnInitialized()
+    {
+        user = new UserDTO();
+        user.Name = "";
+        user.LastName = "";
+        user.Email = "";
+        user.Password = "";
+        user.Role = "";
+    }
+
+    private void OnSubmit()
+    {
+        UserLogic.AddUser(user);
+        //clear form
+        
+    }
+
+    private void OnCancel()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+}
