@@ -45,7 +45,7 @@ namespace Logic
 
         public MovieDTO SearchMovieByTitle(String title)
         {
-            Movie movie = _moviesRepository.Find(movie => movie.Title == title);
+            Movie? movie = _moviesRepository.Find(movie => movie.Title == title);
             if (movie == null)
             {
                 throw new ArgumentException("Cannot find movie with this title");
@@ -55,15 +55,6 @@ namespace Logic
 
         public void UpdateMovie(MovieDTO movieToUpdate)
         {
-            //var movieToUpdateIndex = _memoryDB.Movies.IndexOf(_memoryDB.Movies.Find(m => m.Title == movieToUpdate.Title));
-
-            //if (String.IsNullOrEmpty(movieToUpdate.Director))
-            //{
-            //    throw new ArgumentException("Movie director cannot be empty or null");
-            //}
-
-            //_memoryDB.Movies[movieToUpdateIndex] = movieToUpdate.ToEntity();
-
             _moviesRepository.Update(movieToUpdate.ToEntity());
         }
 
@@ -80,7 +71,7 @@ namespace Logic
 
         private Movie GetMovie(string title)
         {
-            Movie movie = _moviesRepository.Find(movie => movie.Title == title);
+            Movie? movie = _moviesRepository.Find(movie => movie.Title == title);
             if (movie == null)
             {
                 throw new ArgumentException("Cannot find movie with this title");
