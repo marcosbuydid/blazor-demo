@@ -12,11 +12,11 @@ namespace Logic
 {
     public class SessionLogic : ISessionLogic
     {
-        private readonly MemoryDB _memoryDB;
+        private readonly IRepository<User> _userRepository;
 
-        public SessionLogic(MemoryDB memoryDB)
+        public SessionLogic(IRepository<User> userRepository)
         {
-            _memoryDB = memoryDB;
+           _userRepository = userRepository;
         }
 
         public User? GetLoggedUser()
@@ -26,12 +26,17 @@ namespace Logic
 
         public void Login(string email, string password)
         {
-            User? userToAuthenticate = _memoryDB.Users.FirstOrDefault(user => user.Email == email && user.Password == password);
+            User? userToAuthenticate = _userRepository.Find(user => user.Email == email && user.Password == password);
             if (userToAuthenticate == null)
             {
                 throw new ArgumentException("User or password is incorrect, try again");
             }
             LoggedUser.Current = userToAuthenticate;
+        }
+
+        public void Logout()
+        {
+            LoggedUser.Current = null;
         }
     }
 }

@@ -11,5 +11,6 @@ namespace Logic.Interfaces
     {
         void Login(string username, string password);
         User? GetLoggedUser();
+        void Logout();
     }
 }

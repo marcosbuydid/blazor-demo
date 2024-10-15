@@ -1,9 +1,11 @@
 ﻿using Domain;
+using Logic.Interfaces;
 using Logic.Models;
+using System.Linq;
 
 namespace Logic.DataAccess
 {
-    public class MemoryDB
+    public class MemoryDB : IRepository<Movie>, IRepository<User>
     {
         public List<Movie> Movies { get; set; }
         public List<User> Users { get; set; }
@@ -23,8 +25,57 @@ namespace Logic.DataAccess
         }
         private void loadDefaultAdminUser()
         {
-            Users.Add(new User("Marcos","Castro","marcos@email.com", "123456","Administrator"));
+            Users.Add(new User("Marcos", "Castro", "marcos@email.com", "123456", "Administrator"));
         }
 
+        public IList<Movie> FindAll()
+        {
+            return Movies;
+        }
+
+        public Movie? Find(Func<Movie, bool> filter)
+        {
+            return Movies.Where(filter).FirstOrDefault();
+        }
+
+        public void Add(Movie movie)
+        {
+            Movies.Add(movie);
+        }
+
+        public void Update(Movie movieToUpdate)
+        {
+            var movieToUpdateIndex = Movies.IndexOf(Movies.Find(m => m.Title == movieToUpdate.Title));
+            Movies[movieToUpdateIndex] = movieToUpdate;
+        }
+
+        public void Delete(Movie movie)
+        {
+            Movies.Remove(movie);
+        }
+
+        IList<User> IRepository<User>.FindAll()
+        {
+            return Users;
+        }
+        public User? Find(Func<User, bool> filter)
+        {
+            return Users.Where(filter).FirstOrDefault();
+        }
+
+        public void Add(User user)
+        {
+            Users.Add(user);
+        }
+
+        public void Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(User user)
+        {
+            Users.Remove(user);
+        }
     }
 }

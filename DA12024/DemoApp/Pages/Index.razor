@@ -23,6 +23,9 @@
             <label>@SessionLogic.GetLoggedUser().Role</label>
         </div>
 
+        <div class="mt-4">
+            <button type="button" class="btn btn-danger" @onclick="OnLogout">Logout</button>
+        </div>
     </div>
 }
 else
@@ -40,5 +43,11 @@ else
     protected override void OnInitialized()
     {
         SessionLogic.GetLoggedUser();
+    }
+
+    private void OnLogout()
+    {
+        SessionLogic.Logout();
+        NavigationManager.NavigateTo("/");
     }
 }

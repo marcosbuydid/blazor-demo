@@ -12,22 +12,22 @@ namespace Logic
 {
     public class UserLogic : IUserLogic
     {
-        private readonly MemoryDB _memoryDB;
+        private readonly IRepository<User> _userRepository;
 
-        public UserLogic(MemoryDB memoryDB)
+        public UserLogic(IRepository<User> userRepository)
         {
-            _memoryDB = memoryDB;
+            _userRepository = userRepository;
         }
 
         public void AddUser(UserDTO user)
         {
             ValidateUserEmail(user.Email);
-            _memoryDB.Users.Add(user.ToEntity());
+            _userRepository.Add(user.ToEntity());
         }
 
         public UserDTO GetUserByEmail(string email)
         {
-            User user = _memoryDB.Users.FirstOrDefault(user => user.Email == email);
+            User? user = _userRepository.Find(user => user.Email == email);
             if (user == null)
             {
                 throw new ArgumentException("Cannot find user with this email");
@@ -37,7 +37,7 @@ namespace Logic
 
         private void ValidateUserEmail(string email)
         {
-            foreach (var user in _memoryDB.Users)
+            foreach (var user in _userRepository.FindAll())
             {
                 if (user.Email == email)
                 {
