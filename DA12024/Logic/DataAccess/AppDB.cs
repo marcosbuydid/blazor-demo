@@ -59,12 +59,8 @@ namespace Logic.DataAccess
         {
             try
             {
-                //_appDbContext.Update(movie);
-                //_appDbContext.Entry<Movie>(movie).State = EntityState.Modified;
-                //_appDbContext.SaveChanges();
-
-                var movieToUpdate = _appDbContext.FindAsync<Movie>(movie.Title);
-                _appDbContext.Entry(movieToUpdate).CurrentValues.SetValues(movie);
+                _appDbContext.Update(movie);
+                _appDbContext.Entry<Movie>(movie).State = EntityState.Modified;
                 _appDbContext.SaveChanges();
             }
             catch (DbUpdateException e)
