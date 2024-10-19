@@ -54,7 +54,16 @@
             }
 
         }
-        public DateTime ReleaseDate { get; set; }
+        public DateTime ReleaseDate {
+            get
+            {
+                return releaseDate;
+            }
+            set
+            {
+                releaseDate = value;
+            }
+        }
         public int Budget
         {
             get
@@ -71,6 +80,8 @@
                 budget = value;
             }
         }
+
+        public Movie() { }
 
         public Movie(int? id, string title, string director, DateTime releaseYear, int budget)
         {

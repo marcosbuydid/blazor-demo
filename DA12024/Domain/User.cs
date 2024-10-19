@@ -115,6 +115,8 @@ namespace Domain
 
         }
 
+        public User() { }
+
         public User(int? id, string name, string lastname, string email, string password, string role)
         {
             Id = id;
