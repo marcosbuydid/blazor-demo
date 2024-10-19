@@ -10,6 +10,7 @@ namespace Logic.Models
 {
     public class UserDTO
     {
+        public int? Id { get; set; }
         public string Name {  get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -18,8 +19,9 @@ namespace Logic.Models
 
         public User ToEntity()
         {
-            return new User(Name, LastName, Email, Password, Role)
+            return new User(Id, Name, LastName, Email, Password, Role)
             {
+                Id = Id,
                 Name = Name,
                 LastName = LastName,
                 Email = Email,

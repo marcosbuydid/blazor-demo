@@ -10,6 +10,7 @@ namespace Logic.Models
 {
     public class MovieDTO
     {
+        public int? Id { get; set; }
         public string Title { get; set; }
         public string Director { get; set; }
         public DateTime ReleaseDate { get; set; }
@@ -17,8 +18,9 @@ namespace Logic.Models
 
         public Movie ToEntity()
         {
-            return new Movie(Title, Director, ReleaseDate, Budget)
+            return new Movie(Id, Title, Director, ReleaseDate, Budget)
             {
+                Id = Id,
                 Title = Title,
                 Director = Director,
                 ReleaseDate = ReleaseDate,
